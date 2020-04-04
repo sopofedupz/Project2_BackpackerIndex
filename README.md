@@ -4,10 +4,12 @@
 Backpacker Index for 2020 - Cheapest vs Most Expensive Cities
 
 ### Team Members:
-Henock Yacob
-Yee Mun Chan
-Anastasia Bolboceanu
-Junior Jean-Simon 
+<ul>
+  <li>Henock Yacob</li>
+  <li>Yee Mun Chan</li>
+  <li>Anastasia Bolboceanu</li>
+  <li>Junior Jean-Simon</li>
+</ul>
 
 ### Data Source:
 Price of Travel: https://www.priceoftravel.com/world-cities-by-price-backpacker-index/
