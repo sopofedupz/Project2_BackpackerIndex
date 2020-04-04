@@ -29,3 +29,4 @@ Backpacker Index for 2020 - Cheapest vs Most Expensive Cities
 <ol>
 <li>We will use a Web Scraping approach to gather our data and load it to SQLite then visualize the data using a simple Dashboard, with a map to control various other charts.</li>
 <li>For specific portions of our datasets from SQLite we aim to show users popular travel destinations for different components. For example, Food Cost, Hotel Cost, Transportation, etc...</li>
+</ol>
