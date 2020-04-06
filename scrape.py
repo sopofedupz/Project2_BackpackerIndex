@@ -19,6 +19,7 @@ top_cities_html = browser.html
 top_cities_soup = bs(top_cities_html, "html.parser")
 
 top_cities = top_cities_soup.find('div', class_ = "bpiidx_list").find_all('a', href=True)
+daily_total = top_cities_soup.find('div', class_ = "bpiidx_list").find_all('div', class_="bpidx price")
 
 top_cities_info = []
 places_list = []
@@ -32,6 +33,10 @@ for city in range(0,len(top_cities)):
     city_name = city_state_name.split(", ")[0]
     country_name = city_state_name.split(", ")[1]
     
+    # get daily total
+    city_daily_total = daily_total[city]
+    city_daily_total = city_daily_total.text.replace("\n"," ").strip()
+
     # get the links to each of the top cities page
     top_city = top_cities[city]
     top_cities_link = top_city.get_attribute_list('href')[0]
@@ -68,6 +73,8 @@ for city in range(0,len(top_cities)):
         city_facts_dict = {}
         city_facts_dict['city'] = city_name
         city_facts_dict['country'] = country_name
+        city_facts_dict['rank'] = city+1
+        city_facts_dict['city_daily_total'] = city_daily_total
         city_facts_dict['population'] = population
         city_facts_dict['metro_area'] = metro
         city_facts_dict['timezone'] = timezone
@@ -112,6 +119,8 @@ for city in range(0,len(top_cities)):
             transport_price = transport_price.text.replace("\n"," ").strip()
                        
             # put everything in a dict
+            transport_dict['city'] = city_name
+            transport_dict['country'] = country_name
             transport_dict['transport_mode'] = transport_mode
             transport_dict['transport_price'] = transport_price
 
@@ -153,6 +162,8 @@ for city in range(0,len(top_cities)):
             food_price = food_table[food+2].text.replace("\n"," ").strip()
 
             # put everything in a dict
+            food_dict['city'] = city_name
+            food_dict['country'] = country_name
             food_dict['food_type'] = food_type
             food_dict['food_desc'] = food_desc
             food_dict['food_price'] = food_price
@@ -200,6 +211,8 @@ for city in range(0,len(top_cities)):
             prcp = table[data+3].text.replace("\n"," ").strip()
 
             # append the dicts to list
+            month_dict['city'] = city_name
+            month_dict['country'] = country_name
             month_dict['month'] = month
             month_dict['high_temp'] = hi_temp
             month_dict['low_temp'] = lo_temp
