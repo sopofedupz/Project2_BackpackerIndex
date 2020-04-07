@@ -74,7 +74,7 @@ coords_df.loc[coords_df['city_country'] == "San Pedro (Ambergris Caye), Belize",
 coords_df.loc[coords_df['city_country'] == "San Pedro (Ambergris Caye), Belize"]
 
 # connecting to sqlite
-conn = sqlite3.connect('coords.db')
+conn = sqlite3.connect('backpackers_index.db')
 c = conn.cursor()
 
 try:
