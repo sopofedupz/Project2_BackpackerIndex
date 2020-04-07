@@ -5,7 +5,7 @@ import time
 import json
 
 # Set executable path and initialize Chrome browser
-executable_path = {"executable_path": "chromedriver.exe"}
+executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
 browser = Browser("chrome", **executable_path, headless=True)
 
 # Visit the backpacker website
