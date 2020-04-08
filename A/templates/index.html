@@ -3,25 +3,79 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Backpakers 2020</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>Backpackers 2020</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/ 4.3.1/css/bootstrap.min.css">
+ <link rel="stylesheet" href="style.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 
+
 <body>
-  <div class="container-fluid">
-    <div class="jumbotron text-center">
-      <h1>Visit the...</h1>
-      <p>Beach. Rainforest. Volcano. Tree House. Sloths.</p>
-      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Get Data!</a></p>
+
+  <header>
+    <div class="overlay"></div>
+    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+      <source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4">
+    </video>
+    <div class="container h-100">
+      <div class="d-flex h-100 text-center align-items-center">
+        <div class="w-100 text-white">
+          <h1 class="display-3">Backpackers</h1>
+          <h1 class="lead mb-0"> 137 Global Destinations for 2020</h1>
+        </div>
+      </div>
     </div>
-    <img src="{{ vacation.sloth_img }}" alt="Sloth">
-    <h2>The typical weather in Costa Rica is:</h2>
-    <h3>Max Temp: {{ vacation.max_temp }}</h3>
-    <h3>Min Temp: {{ vacation.min_temp }}</h3>
-  </div>
-  </div>
+  </header>
+
+
+  <!--navigation-->
+  <hr></hr>
+  <nav class="navbar navbar-expand-sm bg-light justify-content-center">
+      <ul> 
+        <li> 
+          <a class="nav-link" href="Team.html">Meet the Team</a>
+        </li>
+        <li> 
+          <a class="nav-link" href="Comparison.html">Comparison</a>
+        </li>
+        <li> 
+          <a class="nav-link" href="Dashbord.html">Dashbord</a>
+        </li> 
+        <li>
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        </ul> 
+    </nav>
+    <br>
+  <hr></hr>
+  
+  
+  <section class="my-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <h2> Backpacker Index for 2020 -  Cheapest vs Most Expensive Cities</h2>
+          <p>Data Source: http//:</p>
+          <p>Visualisation: Leflet, Gauge, Fitbit </p>
+          <p class="mb-0">
+  <div class="container">
+    </div>
+    
+  <div class="footer">
+        
+        <h3>Data Analytics Bootcamp 2020</h3>
+      </div>
+  
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="./static/js/app.js"></script>
+  <!--<script src="./static/js/bonus.js"></script>-->
+
 </body>
 
 </html>
