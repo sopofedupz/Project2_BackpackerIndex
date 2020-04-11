@@ -32,8 +32,6 @@ coords = Base.classes.COORDS
 facts = Base.classes.CITY_FACTS
 
 
-session = Session(engine)
-
 
 #################################################
 # Flask Routes
@@ -45,19 +43,22 @@ def IndexRoute():
     webpage = render_template("index.html")
     return webpage
 
-# Route to our dashbord page
-@app.route("/Dashbord")
-def dashbord():
-    return render_template("Dashbord.html")
+# Route to our dashboard page
+@app.route("/Dashboard.html")
+def dashboard():
+    print("works fine in Dashboard.html")
+    return render_template("Dashboard.html")
 
 # Route to our comparison page
-@app.route("/Comparison")
+@app.route("/Comparison.html")
 def comparison():
+    print("works fine in Comparison.html")
     return render_template("Comparison.html")
 
 # Route to our team page
-@app.route("/Team")
+@app.route("/Team.html")
 def team():
+    print("works fine in Team.html")
     return render_template("Team.html")
 
 
