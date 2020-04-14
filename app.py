@@ -20,7 +20,9 @@ app = Flask(__name__)
 # Database Setup
 #################################################
 
-engine = create_engine("sqlite:///backpackers_index.db")
+engine = create_engine("sqlite:///backpackers_index.db",
+                        echo=True,
+                        connect_args={"check_same_thread": False})
 
 # reflect an existing database into a new model
 Base = automap_base()
@@ -77,7 +79,7 @@ def team():
 # These routes are created to get data from database
 #####################################################
 
-@app.route("/api/v1.0/COORDS")
+@app.route("/api/v1.0/coordsData")
 def coordsRoute():
     # Create our session (link) from Python to the DB
     session = Session(engine)
@@ -91,22 +93,40 @@ def coordsRoute():
     # Create a dictionary from the row data and append to a list of all_passengers
     all_coords = []
     for row in city_coords:
-        all_coords.append({"CITY_COUNTRY": row[0],
-                           "LAT": row[1],
-                           "LON": row[2]})
-
-        # })
-        # coord_dict = {}
-        # coord_dict["CITY_COUNTRY"] = NAME
-        # coord_dict["LAT"] = LAT
-        # coord_dict["LON"] = LON
-        
-        # all_coords.append(coord_dict)
-
+        all_coords.append({"city_country": row[0],
+                           "lat": row[1],
+                           "lon": row[2]})
+ 
     return jsonify(all_coords)
 
+    # cityCoordList = ["CITY_COUNTRY", "LAT", "LON"]
+    # all_coords = {}
+    # for item in city_coords:
+    #     CITY_COUNTRY = item[0]
+    #     LAT = item[1]
+    #     LON = item[2]
+    #     for key in all_coords:
+    #         if CITY_COUNTRY == key:
+    #             for city in cityCoordList:
+    #                 test = {city: LAT} 
+    #                 all_coords[key] [CITY_COUNTRY] = {"coords": test}
+    #                 found = True
+    #             if not found:
+    #                 for city in ityCoordList:
+    #                     test = {city: LAT}
+    #                 all_coords[CITY_COUNTRY] = { CITY_COUNTRY: {"coords": test}}
 
-@app.route("/api/v1.0/city_facts")
+    # return all_coords
+
+
+
+
+
+
+
+    
+
+@app.route("/api/v1.0/facts")
 def factsRoute():
     # Create our session (link) from Python to the DB
     session = Session(engine)
@@ -116,14 +136,14 @@ def factsRoute():
     # Create a dictionary from the row data and append to a list of all_facts
     all_cities = []
     for row in city_facts:
-        all_cities.append({" CITY_COUNTRY": row[0],
-                           "RANK": row[1],
-                           "DAILY_TOTAL_VALUE": row[2],
-                           "POPULATION": row[3],
-                           "METRO": row[4],
-                           "TIMEZONE": row[5],
-                           "CURRENCY": row[6],
-                           "AIRPORT": row[7]})
+        all_cities.append({"city_country": row[0],
+                           "rank": row[1],
+                           "daily_total_value": row[2],
+                           "population": row[3],
+                           "metro": row[4],
+                           "timezone": row[5],
+                           "currency": row[6],
+                           "airport": row[7]})
         # city_dict = {}
         # city_dict["CITY_COUNTRY"] = NAME
         # city_dict["RANK"] = RANK
