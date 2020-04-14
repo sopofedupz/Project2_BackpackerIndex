@@ -61,18 +61,15 @@ header {
   }
 
   .footer {
-    background-color: #666666; 
-    border-top-style: solid; 
-    min-height: 55px; 
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px; 
-    text-align: center; 
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    padding-top: 15px; 
+    background-color: grey;
+    color: white;
+    text-align: center;
  }
+
  h3 {
     font-size: 15px;
     font-family:  'Arial ', sans-serif;
@@ -87,15 +84,6 @@ header {
      align-content: center;
  }
 
- html, body {
-  height: 100%;
-  margin: 0;
-}
-#map {
-  width: 600px;
-  height: 440px;
-  border: 1px solid #AAA;"
-}
   
 
   
