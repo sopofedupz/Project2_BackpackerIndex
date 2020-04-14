@@ -60,15 +60,19 @@ header {
     background-color: #111;
   }
 
-  .footer {
+  /* .footer {
+    background-color: #666666; 
+    border-top-style: solid; 
+    min-height: 55px; 
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px; 
+    text-align: center; 
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: grey;
-    color: white;
-    text-align: center;
- }
+    padding-top: 15px; 
+ } */
  h3 {
     font-size: 15px;
     font-family:  'Arial ', sans-serif;
@@ -76,13 +80,22 @@ header {
     text-align: center; 
  }
 
- .container {
+ /* .container {
      position: fixed;
      left: 15;
      right:15;
      align-content: center;
- }
+ } */
 
+ html, body {
+  height: 100%;
+  margin: 0;
+}
+#map {
+  width: 600px;
+  height: 440px;
+  border: 1px solid #AAA;"
+}
   
 
   
