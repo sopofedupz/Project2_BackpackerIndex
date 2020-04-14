@@ -2,8 +2,19 @@
 <html lang="en">
 
 <head>
-  
-  <title>Backpackers 2020</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Backpackers Index 2020 - Food and Lodging Comparison</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <link rel= "stylesheet" type= "text/css" href= "static/style.css">
+</head>
+
+
 <body>
   <header>
     <div class="overlay"></div>
@@ -12,38 +23,65 @@
     </video>
     <div class="container h-100">
       <div class="d-flex h-100 text-center align-items-center">
-        <div class="w-100 text-white">
-          <h1 class="display-3">Backpackers</h1>
-          <h1 class="lead mb-0"> 137 Global Destinations for 2020</h1>
+        <div style="margin-top: 150px;" class="w-100 text-white">
+          <h1 class="display-3">Backpackers Index 2020</h1>
+          <h1 style="font-size: 30px; " class="lead mb-0"> Food and Lodging Comparison Across 137 Top Cities for Backpackers and Travel Lovers </h1>
         </div>
       </div>
     </div>
   </header>
     
-        <nav class="navbar navbar-expand-sm bg-light justify-content-center">
-            <ul> 
-              <li> 
-                <a class="nav-link" href="Team.html">Meet the Team</a>
-              </li>
-              <li> 
-                <a class="nav-link" href="Comparison.html">Comparison</a>
-              </li>
-              <li> 
-                <a class="nav-link" href="Dashboard.html">Dashboard</a>
-              </li> 
-              <li>
-                <a class="nav-link" href="/">Home</a>
-              </li>
-              </ul> 
-          </nav>
-          <br>                
+  <nav class="navbar navbar-expand-sm bg-light justify-content-center">
+      <ul> 
+        <li> 
+          <a class="nav-link" href="Team.html">Meet the Team</a>
+        </li>
+        <li> 
+          <a class="nav-link" href="Comparison.html">Comparison</a>
+        </li>
+        <li> 
+          <a class="nav-link" href="Dashboard.html">Dashboard</a>
+        </li> 
+        <li>
+          <a class="nav-link" href="/">Home</a>
+        </li>
+      </ul> 
+  </nav>
+  <br>                
 
-          <div class="footer">
-              <h3>Copyright &copy; -> Meet the Team, 2020</h3>
-      </div>     
-      
-  
-                
+  <select class="dropdown" id="dd" style="margin-top: 20px; margin-left: 20px;">
+    <option value="" selected="selected">Select Comparison</option>
+    <option value="budget_breakfast">Budget Breakfast</option>
+    <option value="budget_lunch">Budget Lunch</option>
+    <option value="budget_dinner">Budget Dinner</option>
+    <option value="one_star">1-Star Hotel</option>
+    <option value="two_star">2-Star Hotel</option>
+    <option value="three_star">3-Star Hotel</option>
+    <option value="four_star">4-Star Hotel</option>
+    <option value="five_star">5-Star Hotel</option>
+    <option value="hostel">Hostel</option>
+  </select>
+
+  <p style="margin-top: 10px; margin-left: 20px; color: #808080;">Please hover over bar to view city, highest and/or lowest price range</p>
+
+  <div id="chartContainer1" style="height: 600px; width: 85%; padding: 50px;"></div>
+  <div id="chartContainer2" style="height: 600px; width: 85%; margin-top: 100px; margin-bottom: 150px; padding: 50px;"></div>
+  <script src="/static/js/canvasjs.min.js"></script>
+  <script src="/static/js/comparison1.js"></script>
+
+  <div class="container"></div>
+
+  <div style="position: fixed; left: 0; bottom: 0; width: 100%; background-color: grey;" class="footer">
+    <div style="margin-bottom: 10px;" class="row">
+      <div class="col-md-5">
+        <h3 style="color: white; text-align: left; margin-left: 30px">Source: <a style="color: white;" href="https://www.priceoftravel.com/world-cities-by-price-backpacker-index/" target="_blank">PriceofTravel</a></h3>
+      </div>
+      <div class="col-md-7">
+        <h3 style="color: white; text-align: left;">© 2020 Copyright -> Meet the Team</h3>
+      </div>
+    </div> 
+  </div>
+
 </body>
                 
 </html>
