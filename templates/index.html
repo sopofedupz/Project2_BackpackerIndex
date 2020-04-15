@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Backpackers 2020</title>
+  <title>Backpackers Index 2020</title>
   <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/ 4.3.1/css/bootstrap.min.css">
-  <!-- <link rel="stylesheet" href="style.css"> -->
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
-  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
-  <link rel= "stylesheet" type= "text/css" href= "static/style.css">
-
-  </head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- <link rel= "stylesheet" type= "text/css" href= "static/css/style.css"> -->
+  <link rel= "stylesheet" type= "text/css" href= "static/css/style.css">
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+</head>
 
 
 <body>
-
   <header>
     <div class="overlay"></div>
     <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
@@ -27,56 +24,75 @@
       <div class="d-flex h-100 text-center align-items-center">
         <div style="margin-top: 150px;" class="w-100 text-white">
           <h1 class="display-3">Backpackers Index 2020</h1>
-          <h1 class="lead mb-0"> 137 Global Destinations </h1>
+          <h1 style="font-size: 30px;" class="lead mb-0">Top 137 Global Destinations for Backpackers and Travel Lovers</h1>
         </div>
       </div>
     </div>
   </header>
 
+  <!--navigation bar-->
 
-  <!--navigation-->
-  <hr></hr>
   <nav class="navbar navbar-expand-sm bg-light justify-content-center">
-      <ul> 
-        <li> 
-          <a class="nav-link" href="Team.html">Meet the Team</a>
+      <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: rgb(104, 129, 148);"> 
+        <li style = "float: right;"> 
+          <a style="display: block; color: white; text-align: center;padding: 14px 16px; text-decoration: none;" class="nav-link" href="Team.html">Meet the Team</a>
         </li>
-        <li> 
-          <a class="nav-link" href="Comparison.html">Comparison</a>
+        <li style = "float: right;"> 
+          <a style="display: block; color: white; text-align: center;padding: 14px 16px; text-decoration: none;" class="nav-link" href="Comparison.html">Comparison</a>
         </li>
-        <li> 
-          <a class="nav-link" href="Dashboard.html">Dashboard</a>
+        <li style = "float: right;"> 
+          <a style="display: block; color: white; text-align: center;padding: 14px 16px; text-decoration: none;" class="nav-link" href="Dashboard.html">Dashboard</a>
         </li> 
-        <li>
-          <a class="nav-link" href="/">Home</a>
+        <li style = "float: right;">
+          <a style="display: block; color: white; text-align: center;padding: 14px 16px; text-decoration: none;" class="nav-link" href="/">Home</a>
         </li>
-        </ul> 
-    </nav>
-    <br>
-  <hr></hr>
-  
-  <!-- Text -->
-  <section class="my-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 mx-auto">
-          <h2> Backpacker Index for 2020 -  Cheapest vs Most Expensive Cities</h2>
-          <p>Visualisation: Leflet, Gauge, Fitbit </p>
-          <p class="mb-0">
-    </div>
+      </ul> 
+  </nav>
 
-   <!-- Footer -->
-  <div class="footer">
-        <h3>© 2020 Copyright -> Meet the Team</h3>
+  <div style="margin: 50px; margin-bottom: 10px;" class="container-fluid">
+    <p style="font-size: 20px;">
+      The team has worked to pull together some information of the top 137 global destinations that backpackers and travel lovers can travel to after
+      covid-19 is over. The information were obtained and scraped from <a style="font-size: 20px;" href="https://www.priceoftravel.com/world-cities-by-price-backpacker-index/" target="_blank">PriceofTravel</a>. 
+    <br>
+    <br>
+      Per <a style="font-size: 20px;" href="https://www.priceoftravel.com/world-cities-by-price-backpacker-index/" target="_blank">PriceofTravel</a>, the cities are ranked using a daily total value calculation, which includes:
+    <br>
+    <br>
+    <ul style="margin-left: 50px; font-size: 20px;" class="list-group">
+      <li>a dorm bed at a good and cheap hostel</li>
+      <li>3 budget meals</li>
+      <li>2 public transportation rides</li>
+      <li>1 paid cultural attraction (please refer to <a id="incontent" style="font-size: 20px;" href="https://www.priceoftravel.com/world-cities-by-price-backpacker-index/" target="_blank">PriceofTravel</a> for more information)</li>
+      <li>3 cheap beers (as an "entertainment fund")</li>
+    </ul>  
+    </p>
+  </div>
+
+  <div id = "fixed_table_head" style="margin-left: 50px; margin-right: 50px; margin-bottom: 50px; margin-top: 0px;" class="container-fluid">
+    <input style="background-color: rgb(104, 129, 148); color: white" class="btn btn-secondary" type='button' onclick='tableFromJson()' 
+    	value='Click to see the list of the top 137 global destinations' />
+        
+    <p style="margin-top: 40px;" id='showData'></p>
   </div>
   
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="./static/js/app.js"></script>
-  <!--<script src="./static/js/bonus.js"></script>-->
-  
-  
+
+
+  <!-- footer -->
+  <div style="position: fixed; left: 0; bottom: 0; width: 100%; background-color: grey; border-color: white; " class="footer">
+    <div style="height: 30px; " class="row">
+      <div class="col-md-5">
+        <p style="color: white; text-align: left; margin-left: 30px; margin-top: 10px">Source: <a style="color: white;" href="https://www.priceoftravel.com/world-cities-by-price-backpacker-index/" target="_blank">PriceofTravel</a></p>
+      </div>
+      <div class="col-md-7">
+        <p style="color: white; text-align: left; margin-top: 10px">© 2020 Copyright -> Meet the Team</p>
+      </div>
+    </div> 
+  </div>
+
+  <script src="static/js/table.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
+
 </body>
 
 </html>

@@ -6,7 +6,7 @@ var comparison = "/api/v1.0/comparison";
 
 d3.json(comparison, (function(error, jsonData) {
     if (error) throw error;
-    console.log("Comparison Data:", jsonData);
+    // console.log("Comparison Data:", jsonData);
     
     var dataPoints = [];
 
@@ -137,6 +137,7 @@ d3.json(comparison, (function(error, jsonData) {
             y_value = [];
             y_value.push(chart_data[i].y[0]);
             y_value.push(chart_data[i].y[1]);
+            // console.log(y_value);
             chart1.options.data[0].dataPoints.push({label: chart_data[i].label, y: y_value});
         }
 
@@ -149,7 +150,9 @@ d3.json(comparison, (function(error, jsonData) {
         // pushing data in to datapoints list
         for(var i = 0; i < dps.length; i++) {
             if (dps[i].y[1] > 0) {
+                dps.sort(function(a,b) {return a.y[0]-b.y[0]});
                 y_value = dps[i].y[0];
+                console.log(y_value);
                 chart2.options.data[0].dataPoints.push({y: y_value, label: dps[i].label});
             }
         }

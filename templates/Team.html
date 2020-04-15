@@ -5,114 +5,111 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Backpackers</title>
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/ 4.3.1/css/bootstrap.min.css"> -->
- <!-- <link rel="stylesheet" href="style.css"> -->
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <link rel= "stylesheet" type= "text/css" href= "static/style.css">
+  <title>Backpackers Index 2020</title>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- <link rel= "stylesheet" type= "text/css" href= "static/css/style.css"> -->
+  <link rel= "stylesheet" type= "text/css" href= "static/css/style.css">
+  <script src="https://d3js.org/d3.v3.min.js"></script>
 </head>
 
 
-
 <body>
-    
-        <nav class="navbar navbar-expand-sm bg-light justify-content-center">
-            <ul> 
-              <li> 
-                <a class="nav-link" href="Team.html">Meet the Team</a>
-              </li>
-              <li> 
-                <a class="nav-link" href="Comparison.html">Comparison</a>
-              </li>
-              <li> 
-                <a class="nav-link" href="Dashboard.html">Dashboard</a>
-              </li> 
-              <li>
-                <a class="nav-link" href="/">Home</a>
-              </li>
-              </ul> 
-          </nav>
-          <br>
-
-<!-- Header -->
-<!-- <header1 class="bg-primary text-center py-5 mb-4"> -->
-        <div class="container">
-          <h2 class="font-weight-light text-white">Meet the Team</h1>
+  <header>
+    <div class="overlay"></div>
+    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+      <source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4">
+    </video>
+    <div class="container h-100">
+      <div class="d-flex h-100 text-center align-items-center">
+        <div style="margin-top: 150px;" class="w-100 text-white">
+          <h1 class="display-3">Backpackers Index 2020</h1>
+          <h1 style="font-size: 30px;" class="lead mb-0">Meet the Team</h1>
         </div>
-      <!-- </header1> -->
+      </div>
+    </div>
+  </header>
+
+  <!--navigation bar-->
+
+  <nav class="navbar navbar-expand-sm bg-light justify-content-center">
+      <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: rgb(104, 129, 148);"> 
+        <li style = "float: right;"> 
+          <a style="display: block; color: white; text-align: center;padding: 14px 16px; text-decoration: none;" class="nav-link" href="Team.html">Meet the Team</a>
+        </li>
+        <li style = "float: right;"> 
+          <a style="display: block; color: white; text-align: center;padding: 14px 16px; text-decoration: none;" class="nav-link" href="Comparison.html">Comparison</a>
+        </li>
+        <li style = "float: right;"> 
+          <a style="display: block; color: white; text-align: center;padding: 14px 16px; text-decoration: none;" class="nav-link" href="Dashboard.html">Dashboard</a>
+        </li> 
+        <li style = "float: right;">
+          <a style="display: block; color: white; text-align: center;padding: 14px 16px; text-decoration: none;" class="nav-link" href="/">Home</a>
+        </li>
+      </ul> 
+  </nav>
+
       
       
-      <!-- Page Content -->
-      <div class="container">
-        <!-- <div class="row"> -->
-          <!-- Team Member 1 -->
-          <!-- <div class="col-xl-3 col-md-6 mb-4"> -->
-            <!-- <div class="card border-0 shadow"> -->
-              <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="float-left" alt="..." width="505" height="280">
-              <!-- <div class="card-body text-center"> -->
-                 <!-- <h5 class="card-title mb-0">Team Member</h5>  -->
-                <!-- <div class="card-text text-black-50">Web Developer</div> -->
-              <!-- </div> -->
-            <!-- </div>
-          </div> -->
-          <!-- Team Member 2 -->
-          <!-- <div class="col-xl-3 col-md-6 mb-4"> -->
-            <!-- <div class="card border-0 shadow"> -->
-              <img src="https://source.unsplash.com/9UVmlIb0wJU/500x350" class="float-right"  alt="..." width="505" height="280">
-              <!--  <div class="card-body text-center"> -->
-                <!-- <h5 class="card-title mb-0">Team Member</h5>   -->
-                <!-- <div class="card-text text-black-50">Web Developer</div> -->
-              <!-- </div> -->
-            <!-- </div>
-          </div> -->
-          <!-- Team Member 3 -->
-    <!-- <div class="col-xl-3 col-md-6 mb-4"> -->
-            <!-- <div class="card border-0 shadow"> -->
-              <img src="https://source.unsplash.com/sNut2MqSmds/500x350"  class="float-left"  alt="..." width="505" height="280">
-              <!-- <div class="card-body text-center"> -->
-                <!-- <h5 class="card-title mb-0">Team Member</h5> -->
-                <!-- <div class="card-text text-black-50">Web Developer</div> -->
-              <!-- </div> -->
-            <!-- </div>
-          </div> -->
-          <!-- Team Member 4 -->
-          <!-- <div class="col-xl-3 col-md-6 mb-4"> -->
-            <!-- <div class="card border-0 shadow"> -->
-              <img src="https://source.unsplash.com/ZI6p3i9SbVU/500x350" class="float-right"  alt="..." width="505" height="280">
-              <!-- <div class="card-body text-center"> -->
-                <!-- <h5 class="card-title mb-0">Team Member</h5> -->
-                <!-- <div class="card-text text-black-50">Web Developer</div> -->
-              <!-- </div>
-            </div> -->
+  <!-- Page Content -->
+  <div style="margin: 100px;" class="container-fluid">
+    <!-- <div class="row"> -->
+      <!-- Team Member 1 -->
+      <!-- <div class="col-xl-3 col-md-6 mb-4"> -->
+        <!-- <div class="card border-0 shadow"> -->
+          <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="float-left" alt="..." width="505" height="280">
+          <!-- <div class="card-body text-center"> -->
+              <!-- <h5 class="card-title mb-0">Team Member</h5>  -->
+            <!-- <div class="card-text text-black-50">Web Developer</div> -->
+          <!-- </div> -->
+        <!-- </div>
+      </div> -->
+      <!-- Team Member 2 -->
+      <!-- <div class="col-xl-3 col-md-6 mb-4"> -->
+        <!-- <div class="card border-0 shadow"> -->
+          <img src="https://source.unsplash.com/9UVmlIb0wJU/500x350" class="float-right"  alt="..." width="505" height="280">
+          <!--  <div class="card-body text-center"> -->
+            <!-- <h5 class="card-title mb-0">Team Member</h5>   -->
+            <!-- <div class="card-text text-black-50">Web Developer</div> -->
+          <!-- </div> -->
+        <!-- </div>
+      </div> -->
+      <!-- Team Member 3 -->
+<!-- <div class="col-xl-3 col-md-6 mb-4"> -->
+        <!-- <div class="card border-0 shadow"> -->
+          <img src="https://source.unsplash.com/sNut2MqSmds/500x350"  class="float-left"  alt="..." width="505" height="280">
+          <!-- <div class="card-body text-center"> -->
+            <!-- <h5 class="card-title mb-0">Team Member</h5> -->
+            <!-- <div class="card-text text-black-50">Web Developer</div> -->
+          <!-- </div> -->
+        <!-- </div>
+      </div> -->
+      <!-- Team Member 4 -->
+      <!-- <div class="col-xl-3 col-md-6 mb-4"> -->
+        <!-- <div class="card border-0 shadow"> -->
+          <img src="https://source.unsplash.com/ZI6p3i9SbVU/500x350" class="float-right"  alt="..." width="505" height="280">
+          <!-- <div class="card-body text-center"> -->
+            <!-- <h5 class="card-title mb-0">Team Member</h5> -->
+            <!-- <div class="card-text text-black-50">Web Developer</div> -->
           <!-- </div>
         </div> -->
-        <!-- /.row -->
-      
+      <!-- </div>
+    </div> -->
+    <!-- /.row -->
+  
+  </div>
+
+  <!-- footer -->
+  <div style="position: fixed; left: 0; bottom: 0; width: 100%; background-color: grey; border-color: white; " class="footer">
+    <div style="height: 30px; " class="row">
+      <div class="col-md-5">
+        <p style="color: white; text-align: left; margin-left: 30px; margin-top: 10px">Source: <a style="color: white;" href="https://www.priceoftravel.com/world-cities-by-price-backpacker-index/" target="_blank">PriceofTravel</a></p>
       </div>
-      <!-- footer -->
-      <!-- <div id="chartContainer1" style="height: 600px; width: 85%; padding: 50px;"></div> -->
-<!-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> -->
-<!-- <script src="static/js/app.js"></script> -->
-
-<div style="position: relative; padding-top: 0px; margin-bottom: 0px; width: 100%; background-color: grey;" class="footer">
-  <div class="row" style="margin-top: 20px;" >
-    <div class="col-md-5">
-      <h3 style="color: white; text-align: left; margin-left: 30px">Source: <a style="color: white;" href="https://www.priceoftravel.com/world-cities-by-price-backpacker-index/" target="_blank">PriceofTravel</a></h3>
-    </div>
-    <div class="col-md-7">
-      <h3 style="color: white; text-align: center;">© 2020 Copyright -> Meet the Team</h3>
-    </div>
-  </div> 
-</div>
-
-
-
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="./static/js/app.js"></script> -->
-  <!--<script src="./static/js/bonus.js"></script>-->
+      <div class="col-md-7">
+        <p style="color: white; text-align: left; margin-top: 10px">© 2020 Copyright -> Meet the Team</p>
+      </div>
+    </div> 
+  </div>
 
 </body>
 

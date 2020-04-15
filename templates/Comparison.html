@@ -11,7 +11,7 @@
   <script src="https://d3js.org/d3.v3.min.js"></script>
   <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <link rel= "stylesheet" type= "text/css" href= "static/style.css">
+  <link rel= "stylesheet" type= "text/css" href= "static/css/style.css">
 </head>
 
 
@@ -31,25 +31,26 @@
     </div>
   </header>
     
-  <nav class="navbar navbar-expand-sm bg-light justify-content-center">
-      <ul> 
-        <li> 
-          <a class="nav-link" href="Team.html">Meet the Team</a>
-        </li>
-        <li> 
-          <a class="nav-link" href="Comparison.html">Comparison</a>
-        </li>
-        <li> 
-          <a class="nav-link" href="Dashboard.html">Dashboard</a>
-        </li> 
-        <li>
-          <a class="nav-link" href="/">Home</a>
-        </li>
-      </ul> 
-  </nav>
-  <br>                
+  <!--navigation bar-->
 
-  <select class="dropdown" id="dd" style="margin-top: 20px; margin-left: 20px;">
+  <nav class="navbar navbar-expand-sm bg-light justify-content-center">
+    <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: rgb(104, 129, 148);"> 
+      <li style = "float: right;"> 
+        <a style="display: block; color: white; text-align: center;padding: 14px 16px; text-decoration: none;" class="nav-link" href="Team.html">Meet the Team</a>
+      </li>
+      <li style = "float: right;"> 
+        <a style="display: block; color: white; text-align: center;padding: 14px 16px; text-decoration: none;" class="nav-link" href="Comparison.html">Comparison</a>
+      </li>
+      <li style = "float: right;"> 
+        <a style="display: block; color: white; text-align: center;padding: 14px 16px; text-decoration: none;" class="nav-link" href="Dashboard.html">Dashboard</a>
+      </li> 
+      <li style = "float: right;">
+        <a style="display: block; color: white; text-align: center;padding: 14px 16px; text-decoration: none;" class="nav-link" href="/">Home</a>
+      </li>
+    </ul> 
+  </nav>              
+
+  <select class="dropdown" id="dd" style="margin-top: 0px; margin-right: 10px; float: right;">
     <option value="" selected="selected">Select Comparison</option>
     <option value="budget_breakfast">Budget Breakfast</option>
     <option value="budget_lunch">Budget Lunch</option>
@@ -62,22 +63,28 @@
     <option value="hostel">Hostel</option>
   </select>
 
-  <p style="margin-top: 10px; margin-left: 20px; color: #808080;">Please hover over bar to view city, highest and/or lowest price range</p>
-
   <div id="chartContainer1" style="height: 600px; width: 85%; padding: 50px;"></div>
-  <div id="chartContainer2" style="height: 600px; width: 85%; margin-top: 100px; margin-bottom: 150px; padding: 50px;"></div>
+  <div id="chartContainer2" style="height: 600px; width: 85%; margin-top: 100px; margin-bottom: 200px; padding: 50px;"></div>
   <script src="/static/js/canvasjs.min.js"></script>
-  <script src="/static/js/comparison1.js"></script>
+  <script src="/static/js/comparison.js"></script>
+  
 
-  <div class="container"></div>
-
-  <div style="position: fixed; left: 0; bottom: 0; width: 100%; background-color: grey;" class="footer">
-    <div style="margin-bottom: 10px;" class="row">
+  <!-- footer -->
+  <div style="position: fixed; left: 0; bottom: 31px; width: 100%; background-color: whitesmoke;" class="footer">
+    <div class="row">
+      <div class="col-md-12">
+        <p style="color: #808080;; text-align: left; margin-left: 30px;">Please hover over bar to view city, highest and/or lowest price range</p>
+      </div>
+    </div>
+  </div>
+    
+  <div style="position: fixed; left: 0; bottom: 0; width: 100%; background-color: grey; border-color: white; " class="footer">  
+    <div class="row">
       <div class="col-md-5">
-        <h3 style="color: white; text-align: left; margin-left: 30px">Source: <a style="color: white;" href="https://www.priceoftravel.com/world-cities-by-price-backpacker-index/" target="_blank">PriceofTravel</a></h3>
+        <p style="color: white; text-align: left; margin-left: 30px;">Source: <a style="color: white;" href="https://www.priceoftravel.com/world-cities-by-price-backpacker-index/" target="_blank">PriceofTravel</a></p>
       </div>
       <div class="col-md-7">
-        <h3 style="color: white; text-align: left;">© 2020 Copyright -> Meet the Team</h3>
+        <p style="color: white; text-align: left;">© 2020 Copyright -> Meet the Team</p>
       </div>
     </div> 
   </div>

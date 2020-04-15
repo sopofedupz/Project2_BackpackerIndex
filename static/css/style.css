@@ -1,13 +1,13 @@
 header {
     position: relative;
-    /* background-color: black; */
+    background-color: black;
     height: 55vh;
     min-height: 25rem;
     width: 100%;
     overflow: hidden;
   }
   
-  h1 {
+h1 {
     font-size: 40px;
     font-family:  'Arial ', sans-serif;
     color: white;
@@ -15,52 +15,38 @@ header {
     margin-right:34px;
     margin-left:30px;
     margin-top:25px;
-  }
+}
  
-  h2 {
+h2 {
     font-size: 20px;
     font-family:  ' Comic ', sans-serif;
     color: black; 
     text-align: center; 
-  }
-  p {
+}
+  
+p {
     font-size: 15px;
     font-family:  'Arial ', sans-serif;
     color: black; 
     text-align: left; 
-  }
-
-  a {
+}
+  
+a {
     font-size: 15px;
     font-family:  'Arial ', sans-serif;
     color: black; 
     text-align: center; 
-  }
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: rgb(104, 129, 148);
-  }
+}
   
-  li {
-    float: right;
-  }
-  
-  li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  
-  li a:hover {
+li a:hover {
     background-color: #111;
-  }
+}
 
-  .footer {
+#incontent:hover {
+    background-color: white;
+}
+
+/* .footer {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -68,26 +54,23 @@ header {
     background-color: grey;
     color: white;
     text-align: center;
- }
+} */
 
- h3 {
+h3 {
     font-size: 15px;
     font-family:  'Arial ', sans-serif;
     color: black; 
     text-align: center; 
- }
+}
 
- .container {
+.container {
      position: fixed;
      left: 15;
      right:15;
      align-content: center;
  }
 
-  
-
-  
-  header video {
+header video {
     position: absolute;
     top: 30%;
     left: 50%;
@@ -100,14 +83,14 @@ header {
     -moz-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
-  }
+}
   
-  header .container {
+header .container {
     position: relative;
     z-index: 2;
-  }
+}
   
-  header .overlay {
+header .overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -118,6 +101,30 @@ header {
     z-index: 1;
 }
 
+table {
+    text-align: left;
+    position: relative;
+    border-collapse: collapse; 
+  }
+th, td {
+    padding: 0.25rem;
+}
+
+th {
+    background: white;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+
+#dd {
+    background: white;
+    position: sticky;
+    top: 0;
+    /* box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4); */
+}
+
+
 @media (pointer: coarse) and (hover: none) {
   header {
     background: url('https://source.unsplash.com/XT5OInaElMw/1600x900') black no-repeat center center scroll;
@@ -125,22 +132,26 @@ header {
   header video {
     display: none;
   }
+}
 
-  @media (min-width: 1200px) {
+@media (min-width: 1200px) {
     .row.row-grid [class*="col-lg-"] + [class*="col-lg-"] {
         margin-top: 0;
     }
 }
+
 @media (min-width: 992px) {
     .row.row-grid [class*="col-md-"] + [class*="col-md-"] {
         margin-top: 0;
     }
 }
+
 @media (min-width: 768px) {
     .row.row-grid [class*="col-sm-"] + [class*="col-sm-"] {
         margin-top: 0;
     }
 }
+
 @media (min-width: 768px) {
   .row.row-grid [class*="col-xs-"] + [class*="col-xs-"] {
       margin-top: 0;
