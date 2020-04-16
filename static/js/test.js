@@ -1,267 +1,172 @@
-// Creating map
-var mymap = L.map('map').setView([20.0, 5.0], 2);
-
-// Adding tile layer to the map
-L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
-  attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+// Create the tile layer that will be the background of our map
+var lightmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+  attribution: "Map data &copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"http://mapbox.com\">Mapbox</a>",
   maxZoom: 18,
-  id:  "mapbox.streets",
+  id: "mapbox.streets",
   accessToken: API_KEY
-}).addTo(mymap);
+});
 
-// Query the endpoint that returns a JSON ..
+// Initialize all of the LayerGroups we'll be using
+var layers = {
+  COMING_SOON: new L.LayerGroup(),
+  EMPTY: new L.LayerGroup(),
+  LOW: new L.LayerGroup(),
+  NORMAL: new L.LayerGroup(),
+  OUT_OF_ORDER: new L.LayerGroup()
+};
+
+// Create the map with our layers
+var map = L.map("map", {
+  center: [20.0, 5.0],
+  zoom: 2,
+  layers: [
+    layers.COMING_SOON,
+    layers.EMPTY,
+    layers.LOW,
+    layers.NORMAL,
+    layers.OUT_OF_ORDER
+  ]
+});
+
+// Add our 'lightmap' tile layer to the map
+lightmap.addTo(map);
+
+// Create an overlays object to add to the layer control
+var overlays = {
+  "Price per day < $30": layers.COMING_SOON,
+  "Price per day < $60": layers.EMPTY,
+  "Price per day < $100": layers.OUT_OF_ORDER,
+  "Price per day < $137": layers.LOW
+ };
+// Create a control for our layers, add our overlay layers to it
+L.control.layers(null, overlays).addTo(map);
+
+// Create a legend to display information about our map
+var info = L.control({
+  position: "bottomleft"
+});
+// When the layer control is added, insert a div with the class of "legend"
+info.onAdd = function() {
+  var div = L.DomUtil.create("div", "legend");
+  return div;
+};
+// Add the info legend to the map
+info.addTo(map);
+
+// Initialize an object containing icons for each layer group
+var icons = {
+  COMING_SOON: L.ExtraMarkers.icon({
+    icon: "ion-minus-circled",
+    iconColor: "white",
+    markerColor: "blue",
+    shape: "penta"
+  }),
+  EMPTY: L.ExtraMarkers.icon({
+    icon: "ion-minus-circled",
+    iconColor: "white",
+    markerColor: "yellow",
+    shape: "penta"
+  }),
+  OUT_OF_ORDER: L.ExtraMarkers.icon({
+    icon: "ion-minus-circled",
+    iconColor: "white",
+    markerColor: "orange",
+    shape: "penta"
+  }),
+  LOW: L.ExtraMarkers.icon({
+    icon: "ion-minus-circled",
+    iconColor: "white",
+    markerColor: "red",
+    shape: "star"
+  }),
+  NORMAL: L.ExtraMarkers.icon({
+    icon: "ion-minus-circled",
+    iconColor: "white",
+    markerColor: "green",
+    shape: "penta"
+  })
+};
+
+
+// // Query the endpoint that returns a JSON ..
 var linkCoords = "/api/v1.0/coordsData";
 var linkFacts = "/api/v1.0/facts";
 
+d3.json(linkCoords, (function(error, jsonData1) {
+  if (error) throw error;
+  // console.log("Coords Data:", jsonData1);
+  d3.json(linkFacts, (function(error, jsonData2) {
+    if (error) throw error;
+    // console.log("facts Data:", jsonData2);
+    // Create an object to keep of the number of markers in each layer
+       var stationCount = {
+           COMING_SOON: 0,
+           EMPTY: 0,
+           LOW: 0,
+           NORMAL: 0,
+           OUT_OF_ORDER: 0
+         };
+        
+    // Initialize a stationStatusCode, which will be used as a key to access the appropriate layers, icons, and station count for layer group
+    var stationStatusCode;
 
-
-//pullthe data from coordonates table
-d3.json(linkCoords).then(function(coordsData) {
-  //pullthe data from facts table
-  d3.json(linkFacts).then(function(facts) {
-  
-    for ( var i=0; i < coordsData.length; ++i ) {
-      const factsData = facts.filter(d => d.city_country == coordsData[i].city_country);
-      // console.log("factsData:", factsData[0]);
-      var marker = L.marker([coordsData[i].lat, coordsData[i].lon])
-      .bindPopup("airport, " + factsData[0].airport + "\n rank " + factsData[0].rank)
-      .addTo(mymap);
-      }
-   
-    
+    for ( var i=0; i < jsonData1.length; ++i ) {
+            // console.log(jsonData);
+      const factsData = jsonData2.filter(d => d.city_country == jsonData1[i].city_country);
+      console.log(factsData);
+      var station = factsData[0].daily_total_value;
+      console.log(station);
       
-  });
-  
-});
+      
+      // Price per day <$30
+      if (station < 30) {
+        stationStatusCode = "COMING_SOON";
+      }
+      // Price per day > $30 & < $60
+      else if (station >= 30 & station < 60) {
+        stationStatusCode = "EMPTY";
+      }
+      // Price per day > $60 & < $100
+      else if (station >= 60 & station < 100) {
+        stationStatusCode = "OUT_OF_ORDER";
+      }
+      // Price per day > $100 & < $137
+      else if (station >= 100 & station < 137) {
+        stationStatusCode = "LOW";
+      }
+      // Otherwise normal price
+      else {
+        stationStatusCode = "NORMAL";
+      }
 
-
-
-
-
-
-var geojsonLayer = new L.GeoJSON.AJAX("countries.geo.json");
-console.log(geojsonLayer);
-
-d3.json(link, function(data) {
-  L.geoJson(data, {
-    style: function(feature) {
-      return {
-        color: "white",
-        // Call the chooseColor function to decide which color to color our neighborhood (color based on borough)
-        // fillColor: chooseColor(Feature.properties.name),
-        fillColor: blue,
-        fillOpacity: 0.5,
-        weight: 1.5
-      };
-    },
-    // Called on each feature
-    onEachFeature: function(feature, layer) {
-      // Set mouse events to change map styling
-      layer.on({
-        // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
-        mouseover: function(event) {
-          layer = event.target;
-          layer.setStyle({
-            fillOpacity: 0.9
-          });
-        },
-        // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
-        mouseout: function(event) {
-          layer = event.target;
-          layer.setStyle({
-            fillOpacity: 0.5
-          });
-        },
-        // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
-        click: function(event) {
-          map.fitBounds(event.target.getBounds());
-        }
+      // Update the travel destinations count
+      stationCount[stationStatusCode]++;
+      // Create a new marker with the appropriate icon and coordinates
+      var newMarker = L.marker([jsonData1[i].lat,jsonData1[i].lon], {
+        icon: icons[stationStatusCode]
       });
+
+      // Add the new marker to the appropriate layer
+      newMarker.addTo(layers[stationStatusCode]);
+
+      // Bind a popup to the marker that will  display on click. This will be rendered as HTML
+      newMarker.bindPopup( "Destination:  "  + factsData[0].city_country + "<br>" + "Average price: $" + factsData[0].daily_total_value + "<br>" + "Population: " + factsData[0].population + "<br>" + "Metro: " + factsData[0].metro + "<br>" + "Rank: " + factsData[0].rank + "<br>" + "Currency: " + factsData[0].currency + "<br>"  + "Timezone: " + factsData[0].timezone  + "<br>" + "Airport: " + factsData[0].airport);
     }
-  }).addTo(mymap);
-});
-// d3.json(linkCoords, (function(error, jsonData) {
-//   if (error) throw error;
-//   console.log("Data:", jsonData);
-//   var dataPoints = [];
 
+    // Call the updateLegend function, which will... update the legend!
+    updateLegend(station, stationCount);
+//   }));
+// }));
 
-
-
-
-  //add color to cities
-  function style(feature) {
-    //console.log(feature.opioidsTest);
-    var cityToFind = feature.properties.city_country;
-    var cityInfo = coordsData.filter(s=> s.city_country == cityToFind);
-    var dailyValue = cityInfo[0]
-
-    // console.log(cityInfo[0])
-
-    return {
-      fillColor: choroColor(dailyValue),
-      weight: 2,
-      opacity: 1,
-      color: 'white',
-      dashArray: '3',
-      fillOpacity: 0.7
-    };
-  }
-
-  // adds state outlines
-  L.geoJson(statesData, {style: style}).addTo(mymap);
-
-
-  // start highlight on mouse over
-  function highlightFeature(e) {
-    var layer = e.target;
-
-    layer.setStyle({
-      weight: 5,
-      color: '#666',
-      dashArray: '',
-      fillOpacity: 0.7
-    });
-
-    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-        layer.bringToFront();
-    }
-  }
-
-  function resetHighlight(e) {
-    geojson.resetStyle(e.target);
-  }
-
-  function zoomToFeature(e) {
-    map.fitBounds(e.target.getBounds());
-  }
-
-  function onEachFeature(feature, layer) {
-  layer.on({
-      mouseover: highlightFeature,
-      mouseout: resetHighlight,
-      click: zoomToFeature
-    });
-  }
-
-  geojson = L.geoJson(statesData, {
-    style: style,
-    onEachFeature: onEachFeature
-  }).addTo(mymap);
-  //end highlight on mouse over
-
-
-
-//function for when the user selects a state
-function optionChanged(newState){
-  //functions for drawing graphs here
-}
-
-//function for initial landing page
-function initDashboard(){
-  var selector = d3.select("#selDataset");
-
-  d3.json(deathsUrl).then((data)=>{
-   //console.log(data);
-
-    states.forEach((stateSelect)=>{
-      selector.append("option")
-        .text(stateSelect)
-        .property("value", stateSelect)
-    });
-
-    var stateSelect = states[0];
-  });
-
-  //call functions here to draw the initial graphs for the landing page.
-
-}
-
-initDashboard();
-
-
-// //pullthe data from coordonates table
-// d3.json(linkCoords).then(function(coordsData) {
-// // console.log("coordsData:", coordsData);
-//     //  console.log(" first city in the list:", coordsData[1].lat, coordsData[1].lon);
-//     var marker = L.marker([coordsData[1].lat, coordsData[1].lon]).addTo(mymap);
-
-//      });
-//      //pull the data from facts table
-// d3.json(linkFacts).then(function(facts) {
-//       // console.log("facts:", facts);
+// Update the legend's innerHTML with the last updated time and station count
+function updateLegend(time, stationCount, icon) {
+  document.querySelector(".legend").innerHTML = [
   
-  
-
-
-
-
-
-  
-  
-  
-//implement the Event Listener 'onClick' on each Marker. ?????????
-
-
-
-
-//   //create an event click holder
-//   markersLayer.on("click", markerOnClick);
-
-//   function markerOnClick(e) {
-//     var attributes = e.layer.properties;
-//     console.log(attributes.name, attributes.desctiption, attributes.othervars);
-//     // do some stuff…
-//   }
-  
-
-
-
-
-
-
-
-// coloring for choropleth.
-function choseColor(p){
-    // min for all city price = $17, max  = $127
-    var color = "";
-    if (p > 100){
-      color = "#08306b";
-    }
-    else if (p > 80){
-      color = "#284d81";
-    }
-    else if (p > 60){
-      color = "#476997";
-    }
-    else if (p > 40){
-      color = "#6785ad";
-    }
-    else if (p > 20){
-      color = "#87a2c3";
-    }
-    else {
-      color = "#eef4fa";
-    }
-    return color;
-  }
-
-
-
-
-
-
-
-// // Click event
-// function onMapClick(e) {
-//     alert("You clicked the map at " + e.latlng);
-// }
-
-// mymap.on('click', onMapClick);
-
-var popup = L.popup();
-
-function onMapClick(e) {
-    console.log("hi world");
-}
-popup.on('click', onMapClick);
+    "<p class='coming-soon'>Price per day < $30: " + stationCount.COMING_SOON  + "</p>",
+    "<p class='empty'>Price per day < $60: " + stationCount.EMPTY + "</p>",
+    "<p class='out-of-order'>Price per day < $100: " + stationCount.OUT_OF_ORDER + "</p>",
+    "<p class='low'>Price per day <$137: " + stationCount.LOW + "</p>",
+  ].join("");
+ };
+}));
+}));
