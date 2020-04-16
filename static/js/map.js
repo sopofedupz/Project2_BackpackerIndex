@@ -37,9 +37,7 @@ var overlays = {
   "Price per day < $60": layers.EMPTY,
   "Price per day < $100": layers.OUT_OF_ORDER,
   "Price per day < $137": layers.LOW
-  // "Healthy Stations": layers.NORMAL,
  };
-
 // Create a control for our layers, add our overlay layers to it
 L.control.layers(null, overlays).addTo(map);
 
@@ -47,7 +45,6 @@ L.control.layers(null, overlays).addTo(map);
 var info = L.control({
   position: "bottomleft"
 });
-
 // When the layer control is added, insert a div with the class of "legend"
 info.onAdd = function() {
   var div = L.DomUtil.create("div", "legend");
@@ -112,10 +109,7 @@ d3.json(linkCoords, (function(error, jsonData1) {
         
     // Initialize a stationStatusCode, which will be used as a key to access the appropriate layers, icons, and station count for layer group
     var stationStatusCode;
-         // ########################
-        //  ### need to fix this ###
-        // #########################
-      // Loop through the stations (they're the same size and have partially matching data)
+
     for ( var i=0; i < jsonData1.length; ++i ) {
             // console.log(jsonData);
       const factsData = jsonData2.filter(d => d.city_country == jsonData1[i].city_country);
@@ -124,28 +118,28 @@ d3.json(linkCoords, (function(error, jsonData1) {
       console.log(station);
       
       
-      // If a station is listed but not installed, it's coming soon
+      // Price per day <$30
       if (station < 30) {
         stationStatusCode = "COMING_SOON";
       }
-      // If a station has no bikes available, it's empty
+      // Price per day > $30 & < $60
       else if (station >= 30 & station < 60) {
         stationStatusCode = "EMPTY";
       }
-      // If a station is installed but isn't renting, it's out of order
+      // Price per day > $60 & < $100
       else if (station >= 60 & station < 100) {
         stationStatusCode = "OUT_OF_ORDER";
       }
-      // If a station has less than 5 bikes, it's status is low
+      // Price per day > $100 & < $137
       else if (station >= 100 & station < 137) {
         stationStatusCode = "LOW";
       }
-      // Otherwise the station is normal
+      // Otherwise normal price
       else {
         stationStatusCode = "NORMAL";
       }
 
-      // Update the station count
+      // Update the travel destinations count
       stationCount[stationStatusCode]++;
       // Create a new marker with the appropriate icon and coordinates
       var newMarker = L.marker([jsonData1[i].lat,jsonData1[i].lon], {
@@ -156,7 +150,7 @@ d3.json(linkCoords, (function(error, jsonData1) {
       newMarker.addTo(layers[stationStatusCode]);
 
       // Bind a popup to the marker that will  display on click. This will be rendered as HTML
-      newMarker.bindPopup( "Destination:  "  + factsData[0].city_country  + "<br>" + "Avarage price: $" + factsData[0].daily_total_value + "<br>" + "Population: " + factsData[0].population + "<br>" + "Metro: " + factsData[0].metro + "<br>" + "Rank: " + factsData[0].rank + "<br>" + "Currency: " + factsData[0].currency + "<br>"  + "Timezone: " + factsData[0].timezone  + "<br>" + "Airport: " + factsData[0].airport);
+      newMarker.bindPopup( "Destination:  "  + factsData[0].city_country <hr> + "<br>" + "Avarage price: $" + factsData[0].daily_total_value + "<br>" + "Population: " + factsData[0].population + "<br>" + "Metro: " + factsData[0].metro + "<br>" + "Rank: " + factsData[0].rank + "<br>" + "Currency: " + factsData[0].currency + "<br>"  + "Timezone: " + factsData[0].timezone  + "<br>" + "Airport: " + factsData[0].airport);
     }
 
     // Call the updateLegend function, which will... update the legend!
@@ -168,14 +162,11 @@ d3.json(linkCoords, (function(error, jsonData1) {
 function updateLegend(time, stationCount, icon) {
   document.querySelector(".legend").innerHTML = [
   
-    // "<p class='out-of-order'> Price per day < $100: " + stationCount.OUT_OF_ORDER + "</p>",
     "<p class='coming-soon'>Price per day < $30: " + stationCount.COMING_SOON  + "</p>",
     "<p class='empty'>Price per day < $60: " + stationCount.EMPTY + "</p>",
     "<p class='out-of-order'>Price per day < $100: " + stationCount.OUT_OF_ORDER + "</p>",
     "<p class='low'>Price per day <$137: " + stationCount.LOW + "</p>",
-    // "<p class='healthy'>Daily price >$0 " + stationCount.NORMAL + "</p>"
   ].join("");
  };
-// };
 }));
 }));
