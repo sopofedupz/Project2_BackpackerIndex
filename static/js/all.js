@@ -126,7 +126,7 @@ function generateChart () {
           },
           axisX: {
           interval: 1,
-          labelFontSize: 10,
+          labelFontSize: 12,
           labelAutoFit: true,
           labelAngle: 0
           },
@@ -140,7 +140,7 @@ function generateChart () {
           data: [{
               type: "rangeColumn",
               indexLabel: "{y[#index]}",
-              indexLabelFontSize: 12,
+              indexLabelFontSize: 10,
               yValueFormatString: "$#0.00",
               toolTipContent: "{label}<br>High: {y[1]}<br>Low: {y[0]}",
               dataPoints: dataPoints1
