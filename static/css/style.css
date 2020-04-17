@@ -70,6 +70,28 @@ h3 {
      align-content: center;
  }
 
+
+ .flex-container {
+   display: flex;
+   justify-content: space-around;
+   background:#fff;
+  }
+
+  .card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* .card:hover {
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
+} */
+
+.card-body {
+    padding: 15px 20px;
+}
+
+
 header video {
     position: absolute;
     top: 30%;
