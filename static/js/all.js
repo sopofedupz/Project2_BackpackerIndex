@@ -202,7 +202,7 @@ function optionChanged(newCity) {
   generateChart();
   
   //////////////////////////////////////////////////////////
-  // INSERT H AND JJ'S FUNCTION HERE. THIS IS A PLACEHOLDER
+  // INSERT Henock's function here
   //////////////////////////////////////////////////////////
   
 }
