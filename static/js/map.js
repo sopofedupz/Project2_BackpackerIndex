@@ -33,10 +33,10 @@ lightmap.addTo(map);
 
 // Create an overlays object to add to the layer control
 var overlays = {
-  "Price per day < $30": layers.COMING_SOON,
-  "Price per day < $60": layers.EMPTY,
-  "Price per day < $100": layers.OUT_OF_ORDER,
-  "Price per day < $137": layers.LOW
+  "Daily Total Value < $30": layers.COMING_SOON,
+  "Daily Total Value < $60": layers.EMPTY,
+  "Daily Total Value < $100": layers.OUT_OF_ORDER,
+  "Daily Total Value < $137": layers.LOW
  };
 // Create a control for our layers, add our overlay layers to it
 L.control.layers(null, overlays).addTo(map);
@@ -150,7 +150,7 @@ d3.json(linkCoords, (function(error, jsonData1) {
       newMarker.addTo(layers[stationStatusCode]);
 
       // Bind a popup to the marker that will  display on click. This will be rendered as HTML
-      newMarker.bindPopup( "Destination:  "  + factsData[0].city_country + "<br>" + "Average price: $" + factsData[0].daily_total_value + "<br>" + "Population: " + factsData[0].population + "<br>" + "Metro: " + factsData[0].metro + "<br>" + "Rank: " + factsData[0].rank + "<br>" + "Currency: " + factsData[0].currency + "<br>"  + "Timezone: " + factsData[0].timezone  + "<br>" + "Airport: " + factsData[0].airport);
+      newMarker.bindPopup("<b>" + "Destination:  "  + factsData[0].city_country  + "</b>" + "hr" + "<br>" + "Average price: $" + factsData[0].daily_total_value + "<br>" + "Population: " + factsData[0].population + "<br>" + "Metro: " + factsData[0].metro + "<br>" + "Rank: " + factsData[0].rank + "<br>" + "Currency: " + factsData[0].currency + "<br>"  + "Timezone: " + factsData[0].timezone  + "<br>" + "Airport: " + factsData[0].airport);
     }
 
     // Call the updateLegend function, which will... update the legend!
@@ -162,10 +162,10 @@ d3.json(linkCoords, (function(error, jsonData1) {
 function updateLegend(time, stationCount, icon) {
   document.querySelector(".legend").innerHTML = [
   
-    "<p class='coming-soon'>Price per day < $30: " + stationCount.COMING_SOON  + "</p>",
-    "<p class='empty'>Price per day < $60: " + stationCount.EMPTY + "</p>",
-    "<p class='out-of-order'>Price per day < $100: " + stationCount.OUT_OF_ORDER + "</p>",
-    "<p class='low'>Price per day <$137: " + stationCount.LOW + "</p>",
+    "<p class='coming-soon'>Daily Total Value < $30: " + stationCount.COMING_SOON  + " travel dest." +"</p>",
+    "<p class='empty'>Daily Total Value < $60: " + stationCount.EMPTY + " travel dest." + "</p>",
+    "<p class='out-of-order'>Daily Total Value < $100: " + stationCount.OUT_OF_ORDER + " travel dest." + "</p>",
+    "<p class='low'>Daily Total Value <$137: " + stationCount.LOW + " travel dest." + "</p>",
   ].join("");
  };
 }));
