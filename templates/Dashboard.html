@@ -34,7 +34,7 @@
   <!-- <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" /> -->
   <!-- <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script> -->
   <!-- <script type='text/javascript' src='http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js'></script> -->
-  <title>Backpackers 2020</title>
+  <title>Backpackers Index 2020</title>
 </head>
 
 
@@ -101,11 +101,25 @@
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
 
       <div class="col-md-6">
-        <div id="range"></div>
-        <h5> gauge precip (cal-md-6)</h5>
+        <p id ='data_type' style="margin-left: 50px; margin-top: 50px;">I want to see the price range for:</p>
+        <input style="margin-left: 50px;"  type="radio" name="type" id="Food and Drinks" value="fnb" onclick="OnChangeRadio (this)" checked/> 
+        <label for="Food and Drinks">Food and Drinks</label>
+        <input style="margin-left: 50px;" type="radio" name="type" id="Hotel" value="hotel" onclick="OnChangeRadio (this)" /> 
+        <label for="Hotel">Hotel</label>
+        <input style="margin-left: 50px;"  type="radio" name="type" id="Transportation" value="transport" onclick="OnChangeRadio (this)" /> 
+        <label for="Transportation">Transportation</label>
+
+      <!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+      \\ Here is the code for the range chart. You may need to change height and width percentage in style
+      \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+
+        <div id="chartContainer1" style="height: 600px; width: 85%; margin-top: 100px; margin-bottom: 300px; "></div>
+        <script src="/static/js/canvasjs.min.js"></script>
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script src="/static/js/all.js"></script>
+
       </div>
     </div>
-
   </div>
    
  
