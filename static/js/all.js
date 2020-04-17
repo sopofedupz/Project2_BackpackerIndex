@@ -1,7 +1,3 @@
-function onClick(e) {
-  alert(this.getLatLng());
-}
-
 ////////////////////////////////////////////////
 // NOT SURE IF THIS SECTION WOULD WORK
 ////////////////////////////////////////////////
@@ -18,11 +14,32 @@ function onClick(e) {
 // END OF SECTION
 ////////////////////////////////////////////////
 
+function onClick(e) {
+  var coords_dp = this.getLatLng();
+  var city_lat = coords_dp['lat'];
+  var city_lng = coords_dp['lng'];
+
+  var coords_link = "/api/v1.0/coordsData";
+
+  d3.json(coords_link, (function(error, coords_data) {
+    if (error) throw error;
+
+    var found_city;
+    for(var i = 0; i < coords_data.length; i++) {
+      var nn = coords_data[i];
+      if (nn.lat == city_lat && nn.lon == city_lng) {
+        found_city = nn.city_country;
+        optionChanged(found_city);
+      }
+    }
+  }))
+}
+
 //function for initial landing page
 function initDashboard() {
   
-  // fetch the html selector for drop-down menu
-  var selector = d3.select("#selDataset");
+  // // fetch the html selector for drop-down menu
+  // var selector = d3.select("#selDataset");
 
   // get data to include in drop-down
   var cities_link = "/api/v1.0/citiesName";
@@ -31,18 +48,18 @@ function initDashboard() {
     if (error) throw error;
     // console.log(jsonData);
           
-    // create variable to hold names
-    jsonData.forEach((city) => {
-      selector
-        .append("option")
-        .text(city)
-        .property("value", city)
-    });
+    // // create variable to hold names
+    // jsonData.forEach((city) => {
+    //   selector
+    //     .append("option")
+    //     .text(city)
+    //     .property("value", city)
+    // });
 
-    // set the initial data to the first city
-    var city = jsonData[0];
+    // // set the initial data to the first city
+    // var city = jsonData[0];
 
-    console.log(city);
+    // console.log(city);
   }));
 
     //////////////////////////////////////////////////////////
@@ -75,6 +92,7 @@ function initDashboard() {
 
 // on change function
 function optionChanged(newCity) {
+  console.log(newCity);
 
     // Fetch new data each time a new sample is selected
 

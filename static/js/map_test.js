@@ -150,7 +150,7 @@ d3.json(linkCoords, (function(error, jsonData1) {
       newMarker.addTo(layers[stationStatusCode]).on('click', onClick);
 
       // Bind a popup to the marker that will  display on click. This will be rendered as HTML
-      newMarker.bindPopup("<b>" + "Destination:  "  + factsData[0].city_country  + "</b>" + "<br>" + "</b>" + "<br>" + "Average price: $" + factsData[0].daily_total_value + "<br>" + "Population: " + factsData[0].population + "<br>" + "Metro: " + factsData[0].metro + "<br>" + "Rank: " + factsData[0].rank + "<br>" + "Currency: " + factsData[0].currency + "<br>"  + "Timezone: " + factsData[0].timezone  + "<br>" + "Airport: " + factsData[0].airport);
+      newMarker.bindPopup("<b>" + "Destination:  "  + factsData[0].city_country  + "</b>" + "<br>" + "</b>" + "<br>" + "Daily Total Value: $" + factsData[0].daily_total_value + "<br>" + "Population: " + factsData[0].population + "<br>" + "Metro: " + factsData[0].metro + "<br>" + "Rank: " + factsData[0].rank + "<br>" + "Currency: " + factsData[0].currency + "<br>"  + "Timezone: " + factsData[0].timezone  + "<br>" + "Airport: " + factsData[0].airport);
     }
 
     // Call the updateLegend function, which will... update the legend!
