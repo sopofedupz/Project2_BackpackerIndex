@@ -118,14 +118,6 @@ def coordsRoute():
 
     # return all_coords
 
-
-
-
-
-
-
-    
-
 @app.route("/api/v1.0/facts")
 def factsRoute():
     # Create our session (link) from Python to the DB
@@ -271,6 +263,120 @@ def compRoute():
     dict['five_star'] = five_star
     dict['hostel'] = hostel_list
 
+    return jsonify(dict)
+
+@app.route("/api/v1.0/citiesName")
+def citiesNameRoute():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+    # Return a list of dictionaries with cities
+    city_facts = session.query(facts.city_country).all()
+
+    session.close()
+
+    # Get the list of cities
+    cities = []
+
+    for row in city_facts:
+        cities.append(row[0])
+
+    return jsonify(cities)
+
+@app.route("/api/v1.0/fnbData")
+def fnbRoute():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+    # Return a list of dictionaries with food and drinks, hotel, hostel, and transportation
+    fnb = session.query(food_drinks.city_country, food_drinks.food_drinks_type, food_drinks.food_drinks_lower_price, food_drinks.food_drinks_upper_price).all()
+    city_facts = session.query(facts.city_country).all()
+
+    session.close()
+
+    # Get the list of cities
+    cities = []
+
+    for row in city_facts:
+        cities.append(row[0])
+
+    # Create a dictionary of the list of cities
+    dict = {c: [] for c in cities}
+
+    for row in fnb:
+        for i in range (0, 137):
+            if row[0] == cities[i]:
+                name = cities[i]
+                price_range = []
+                price_range.append(row[2])
+                price_range.append(row[3])
+                dict[name].append({"y": price_range,
+                                "label": row[1]
+                                })
+
+    return jsonify(dict)
+
+@app.route("/api/v1.0/hotelData")
+def hotelRoute():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+    # Return a list of dictionaries with food and drinks, hotel, hostel, and transportation
+    hotel = session.query(hotel_tbl.city_country, hotel_tbl.hotel_ratings, hotel_tbl.hotel_lower_price, hotel_tbl.hotel_upper_price).all()
+    city_facts = session.query(facts.city_country).all()
+
+    session.close()
+
+    # Get the list of cities
+    cities = []
+
+    for row in city_facts:
+        cities.append(row[0])
+
+    # Create a dictionary of the list of cities
+    dict = {c: [] for c in cities}
+
+    for row in hotel:
+        for i in range (0, 137):
+            if row[0] == cities[i]:
+                name = cities[i]
+                price_range = []
+                price_range.append(row[2])
+                price_range.append(row[3])
+                dict[name].append({"y": price_range,
+                                "label": row[1]
+                                })
+
+    return jsonify(dict)
+
+@app.route("/api/v1.0/transportData")
+def transportRoute():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+    # Return a list of dictionaries with food and drinks, hotel, hostel, and transportation
+    transport = session.query(transport_tbl.city_country, transport_tbl.transport_mode, transport_tbl.transport_lower_price, transport_tbl.transport_upper_price).all()
+    city_facts = session.query(facts.city_country).all()
+
+    session.close()
+
+    # Get the list of cities
+    cities = []
+
+    for row in city_facts:
+        cities.append(row[0])
+
+    # Create a dictionary of the list of cities
+    dict = {c: [] for c in cities}
+
+    for row in transport:
+        for i in range (0, 137):
+            if row[0] == cities[i]:
+                name = cities[i]
+                price_range = []
+                price_range.append(row[2])
+                price_range.append(row[3])
+                dict[name].append({"y": price_range,
+                                "label": row[1]
+                                })
+
+    # return jsonify(dict)
     return jsonify(dict)
 
 @app.route("/test")
