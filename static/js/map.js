@@ -113,9 +113,9 @@ d3.json(linkCoords, (function(error, jsonData1) {
     for ( var i=0; i < jsonData1.length; ++i ) {
             // console.log(jsonData);
       const factsData = jsonData2.filter(d => d.city_country == jsonData1[i].city_country);
-      console.log(factsData);
+      // console.log(factsData);
       var station = factsData[0].daily_total_value;
-      console.log(station);
+      // console.log(station);
       
       
       // Price per day <$30
