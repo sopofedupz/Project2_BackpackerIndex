@@ -406,6 +406,7 @@ def climate():
         climate_dict["precipitation"] = prcp_inch
         all_climate.append(climate_dict)
 
+    #Use pandas to clean data file
     my_climate_df = pd.DataFrame(all_climate)
     grouped_df = my_climate_df.groupby('city_country').mean().round().fillna(0).reset_index()
     avg_col = grouped_df.loc[:, "high_temp":"low_temp"]
