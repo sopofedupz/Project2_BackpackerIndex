@@ -33,10 +33,10 @@ lightmap.addTo(map);
 
 // Create an overlays object to add to the layer control
 var overlays = {
-  "Daily Total Value < $30": layers.COMING_SOON,
-  "Daily Total Value < $60": layers.EMPTY,
-  "Daily Total Value < $100": layers.OUT_OF_ORDER,
-  "Daily Total Value < $137": layers.LOW
+  "Price Value < $30": layers.COMING_SOON,
+  "Price Value < $60": layers.EMPTY,
+  "Price Value < $100": layers.OUT_OF_ORDER,
+  "Price Value < $137": layers.LOW
  };
 // Create a control for our layers, add our overlay layers to it
 L.control.layers(null, overlays).addTo(map);
@@ -117,7 +117,6 @@ d3.json(linkCoords, (function(error, jsonData1) {
       var station = factsData[0].daily_total_value;
       // console.log(station);
       
-      
       // Price per day <$30
       if (station < 30) {
         stationStatusCode = "COMING_SOON";
@@ -159,7 +158,7 @@ d3.json(linkCoords, (function(error, jsonData1) {
 // }));
 
 // Update the legend's innerHTML with the last updated time and station count
-function updateLegend(time, stationCount, icon) {
+function updateLegend(time, stationCount) {
   document.querySelector(".legend").innerHTML = [
   
     "<p class='coming-soon'>Daily Total Value < $30: " + stationCount.COMING_SOON  + " travel dest." +"</p>",
