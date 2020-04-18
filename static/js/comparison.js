@@ -1,5 +1,5 @@
 // Show that we've loaded the JavaScript file
-console.log("Loaded comparison.js");
+// console.log("Loaded comparison.js");
 
 // Query the endpoint that returns a JSON ...
 var comparison = "/api/v1.0/comparison";
@@ -152,7 +152,7 @@ d3.json(comparison, (function(error, jsonData) {
             if (dps[i].y[1] > 0) {
                 dps.sort(function(a,b) {return a.y[0]-b.y[0]});
                 y_value = dps[i].y[0];
-                console.log(y_value);
+                // console.log(y_value);
                 chart2.options.data[0].dataPoints.push({y: y_value, label: dps[i].label});
             }
         }
