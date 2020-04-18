@@ -34,13 +34,13 @@
   <!-- <link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" /> -->
   <!-- <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script> -->
   <!-- <script type='text/javascript' src='http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js'></script> -->
-  <title>Backpackers 2020</title>
+  <title>Backpackers Index 2020</title>
 </head>
 
 
 <body>
     
-        <!--navigation bar-->
+  <!--navigation bar-->
 
   <nav class="navbar navbar-expand-sm bg-light justify-content-center">
     <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: rgb(104, 129, 148);"> 
@@ -60,40 +60,80 @@
   </nav>  
           <br>
         
-
+<!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+\\ LEAFLET - MAP
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
         
-  <div class="container">
-      <div class="row">
-         <div class="col-md-12">
-          <div id="map" style="width: 1200px; height: 500px;"></div>
-          <h4>Leaflet map col-md-12</h4>
-        </div>
-  </div>
-                
-     <div class="row">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div id="map" style="width: 100%; height: 500px;"></div>
+        <!-- <h4>Leaflet map col-md-12</h4> -->
+      </div>
+    </div>
+  
+
+<!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+\\ Drop down menu to select city
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+               
+    <!-- <div class="row">
       <div class="col-md-6">
-         <div class="well">
-        <h5>Select City:(col-md-6)</h5>
+        <div class="well">
+          <h5>Select City:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
-       </div>
-      </div>
-      
-      </div>
-    
-      <div class="col-md-5">
-          <div id="gauge"></div>
-           <h5> gauge temperature (col-md-5</h5>
-         </div>
-      </div>
-      <div class="col-md-6">
-          <div id="gauge"></div>
-          <h5> gauge precip (cal-md-6)</h5>
-         </div>
-      </div>
-        
-</div>
-   
+        </div>
+      </div>      
+    </div> -->
 
+<!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+\\ TEMPERATURE AND PRECIPITATION
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div id="gauge"></div>
+        <h5> gauge temperature (col-md-5</h5>
+      </div>
+
+<!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+\\ RANGE CHART
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+
+      <div class="col-md-6">
+        <p id ='data_type' style="margin-left: 50px; margin-top: 50px;">I want to see the price range for:</p>
+        <input style="margin-left: 50px;"  type="radio" name="type" id="Food and Drinks" value="fnb" onclick="OnChangeRadio (this)" checked/> 
+        <label for="Food and Drinks">Food and Drinks</label>
+        <input style="margin-left: 50px;" type="radio" name="type" id="Hotel" value="hotel" onclick="OnChangeRadio (this)" /> 
+        <label for="Hotel">Hotel</label>
+        <input style="margin-left: 50px;"  type="radio" name="type" id="Transportation" value="transport" onclick="OnChangeRadio (this)" /> 
+        <label for="Transportation">Transportation</label>
+
+      <!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+      \\ Here is the code for the range chart. You may need to change height and width percentage in style
+      \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+
+        <div id="chartContainer1" style="height: 400px; width: 85%; margin-top: 50px; margin-bottom: 300px; "></div>
+        <script src="/static/js/canvasjs.min.js"></script>
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script src="/static/js/all.js"></script>
+
+      </div>
+    </div>
+  </div>
+   
+ 
+<!-- footer -->
+<div style="position: fixed; left: 0; bottom: 0; width: 100%; background-color: grey; border-color: white; " class="footer">
+  <div style="height: 30px; " class="row">
+    <div class="col-md-5">
+      <p style="color: white; text-align: left; margin-left: 30px; margin-top: 10px">Source: <a style="color: white;" href="https://www.priceoftravel.com/world-cities-by-price-backpacker-index/" target="_blank">PriceofTravel</a></p>
+    </div>
+    <div class="col-md-7">
+      <p style="color: white; text-align: left; margin-top: 10px">© 2020 Copyright -> Meet the Team</p>
+    </div>
+  </div> 
+</div>
 
 <!-- D3 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
@@ -109,22 +149,10 @@ crossorigin=""></script>
 <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 <script src="//www.amcharts.com/lib/4/core.js"></script>
 <script type="text/javascript" src="static/js/config.js"></script>
-<script type="text/javascript" src="static/js/map.js"></script>
+<script type="text/javascript" src="static/js/map_test.js"></script>
 <script type="text/javascript" src="static/js/all.js"></script>
 
- 
-<!-- footer -->
-  
-<div style="position: fixed; left: 0; bottom: 0; width: 100%; background-color: grey; border-color: white; " class="footer">  
-  <div class="row">
-    <div class="col-md-5">
-      <p style="color: white; text-align: left; margin-left: 30px;">Source: <a style="color: white;" href="https://www.priceoftravel.com/world-cities-by-price-backpacker-index/" target="_blank">PriceofTravel</a></p>
-    </div>
-    <div class="col-md-7">
-      <p style="color: white; text-align: left;">© 2020 Copyright -> Meet the Team</p>
-    </div>
-  </div> 
-</div>
+
 
 </body>
       
