@@ -10,6 +10,8 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 import numpy as np
 
+import pandas as pd
+
 #################################################
 # Flask Setup
 #################################################
@@ -36,6 +38,7 @@ food_drinks = Base.classes.FOOD_DRINKS
 hotel_tbl = Base.classes.HOTEL
 hostel_tbl = Base.classes.HOSTEL
 transport_tbl = Base.classes.TRANSPORTATION
+climate_data = Base.classes.TEMP_PRCP
 
 #################################################
 # Flask Routes
@@ -378,6 +381,42 @@ def transportRoute():
 
     # return jsonify(dict)
     return jsonify(dict)
+
+@app.route("/api/v1.0/climate")
+def climate():
+
+    session = Session(engine)
+
+    results = session.query(climate_data.city_country, 
+                            climate_data.month, 
+                            climate_data.high_temp,
+                            climate_data.low_temp,
+                            climate_data.prcp_inch,
+                            ).all()
+
+    session.close()
+
+
+    all_climate = []
+    for city_country, month, high_temp, low_temp, prcp_inch in results:
+        climate_dict = {}
+        climate_dict["city_country"] = city_country
+        climate_dict["high_temp"] = high_temp
+        climate_dict["low_temp"] = low_temp
+        climate_dict["precipitation"] = prcp_inch
+        all_climate.append(climate_dict)
+
+    #Use pandas to clean data file
+    my_climate_df = pd.DataFrame(all_climate)
+    grouped_df = my_climate_df.groupby('city_country').mean().round().fillna(0).reset_index()
+    avg_col = grouped_df.loc[:, "high_temp":"low_temp"]
+
+    grouped_df['avg_temp'] = avg_col.mean(axis=1)
+    avg_climate = grouped_df.drop(columns=["high_temp", "low_temp"])
+
+    return avg_climate.to_json(orient='records')
+
+
 
 @app.route("/test")
 def TestRoute():

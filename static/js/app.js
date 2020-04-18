@@ -8,7 +8,7 @@
 var popup = L.popup();
 
 function onMapClick(e) {
-    console.log("hi world");
+    // console.log("hi world");
 }
 popup.on('click', onMapClick);
 
