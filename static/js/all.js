@@ -1,22 +1,55 @@
-////////////////////////////////////////////////
-// NOT SURE IF THIS SECTION WOULD WORK
-////////////////////////////////////////////////
-
-// function stateChange() {
-//     am4core.disposeAllCharts();
-//     let curState = this.value;
-//    HenockChart(curState);
-  
-//     JJChart(curState);  
-// }
-
-////////////////////////////////////////////////
-// END OF SECTION
-////////////////////////////////////////////////
+// GOOD
 
 // set initial city to Hanoi, Vietnam and radio button to food and drinks
 var city = "Hanoi, Viet Nam";
 var radioValue = "fnb";
+
+var rangeLabel = "Jan";
+
+$rangeInput = $('.range input')
+
+// Change input value on label click
+$('.range-labels li').on('click', function () {
+
+  var index = $(this).index();
+  rangeLabel = $(this).text();
+    
+  $rangeInput.val(index + 1).trigger('input');
+  console.log(rangeLabel);
+
+  generate_prcp();
+})
+
+function addParagraph() {
+  $("#intro1").empty();
+  $("#intro2").empty();
+  $("#intro3").empty();
+  $("#intro4").empty();
+  $("#city_label").empty();
+
+  
+  var intro_link = "/api/v1.0/intro";
+
+  d3.json(intro_link, (function(error, jsonData) {
+    if (error) throw error;
+
+    for (var i = 0; i < jsonData.length; i++) {
+      if (jsonData[i]['city_country'] === city) {
+        $("#city_label").append(city);
+        $("#intro1").append(jsonData[i]['para1']);
+        $("#intro2").append(jsonData[i]['para2']);
+        $("#intro3").append(jsonData[i]['para3']);
+        if (jsonData[i]['para4']==="empty") {
+          $("#intro4").empty();
+        }
+        else {
+          $("#intro4").append(jsonData[i]['para4']);
+        }
+        
+      }
+    }
+  }));
+}
 
 function onClick(e) {
   var coords_dp = this.getLatLng();
@@ -40,61 +73,16 @@ function onClick(e) {
   }))
 }
 
-//////////////////////////////////////////////////////
-// THIS IS THE DROP DOWN CODE. REMOVE IF NOT IN USE
-//////////////////////////////////////////////////////
-
-//function for initial landing page
-// function initDashboard() {
-  
-  // // fetch the html selector for drop-down menu
-  // var selector = d3.select("#selDataset");
-
-  // get data to include in drop-down
-  // var cities_link = "/api/v1.0/citiesName";
-
-  // d3.json(cities_link, (function(error, jsonData) {
-  //   if (error) throw error;
-    // console.log(jsonData);
-          
-    // // create variable to hold names
-    // jsonData.forEach((city) => {
-    //   selector
-    //     .append("option")
-    //     .text(city)
-    //     .property("value", city)
-    // });
-
-    // // set the initial data to the first city
-    // var city = jsonData[0];
-
-    // console.log(city);
-  // }));
-
-    //////////////////////////////////////////////////////////
-    // INSERT H AND JJ'S FUNCTION HERE. THIS IS A PLACEHOLDER
-    //////////////////////////////////////////////////////////
-    // function(city)
-
-// }
-
-////////////////////////////////////////////////////////////////
-// END OF SECTION
-/////////////////////////////////////////////////////////////////
-
 //function for initial landing page
 function initDashboard() {
     
   tempGauge(city);
   percipGauge(city);
   generateChart();
-  
+  generate_prcp();
+  addParagraph(city)  
 }
 
-  
-//////////////////////////////////////////////////////////////////////////////
-// HENOCK'S CHART FUNCTION
-//////////////////////////////////////////////////////////////////////////////
 var url = "/api/v1.0/climate";
 
 function cityCaller(city) {
@@ -116,12 +104,10 @@ function cityCaller(city) {
   }));
 }
 
-
-
 function tempGauge(city) {
   d3.json(url, (function(error, climate) {
     if (error) throw error;
-    console.log(climate);
+    // console.log(climate);
 
     var city_names = [];
     // Append each ID from the samplesData array to the samplesIDs list.
@@ -132,7 +118,6 @@ function tempGauge(city) {
     var city_index = city_names.indexOf(city);
     // console.log(city_index);
   
-
     var myConfig = {
       type: "gauge",
       globals: {
@@ -229,7 +214,6 @@ function tempGauge(city) {
       }]
     };
   
-
     zingchart.render({
       id: 'tempGauge',
       data: myConfig,
@@ -238,7 +222,6 @@ function tempGauge(city) {
     });
   }));
 }
-
 
 function percipGauge(city) {
   d3.json(url, (function(error, climate) {
@@ -358,14 +341,171 @@ function percipGauge(city) {
   }));
 }
 
+function generate_prcp() {
+  var sheet = document.createElement('style'),  
+    $rangeInput = $('.range input'),
+    prefs = ['webkit-slider-runnable-track', 'moz-range-track', 'ms-track'];
 
+  document.body.appendChild(sheet);
 
+  var getTrackStyle = function (el) {  
+    var curVal = el.value,
+        val = (curVal - 0.985) * 8.868,
+        style = '';
+    
+    // Set active label
+    $('.range-labels li').removeClass('active selected');
+    
+    var curLabel = $('.range-labels').find('li:nth-child(' + curVal + ')');
+    
+    curLabel.addClass('active selected');
+    curLabel.prevAll().addClass('selected');
+    
+    // Change background gradient
+    for (var i = 0; i < prefs.length; i++) {
+      style += '.range {background: linear-gradient(to right, #37adbf 0%, #37adbf ' + val + '%, #fff ' + val + '%, #fff 100%)}';
+      style += '.range input::-' + prefs[i] + '{background: linear-gradient(to right, #37adbf 0%, #37adbf ' + val + '%, #b2b2b2 ' + val + '%, #b2b2b2 100%)}';
+    }
 
+    return style;
+  }
 
+  $rangeInput.on('input', function () {
+    sheet.textContent = getTrackStyle(this);
+  });
 
-//////////////////////////////////////////////////////////////////////////////
-// FUNCTION TO GENERATE RANGE COLUMN CHART
-//////////////////////////////////////////////////////////////////////////////
+  // // Change input value on label click
+  // $('.range-labels li').on('click', function () {
+
+  //   var index = $(this).index();
+  //   rangeLabel = $(this).text();
+      
+  //   $rangeInput.val(index + 1).trigger('input');
+  //   console.log(rangeLabel);
+
+  var data_link = "/api/v1.0/tempPrcp";
+
+  d3.json(data_link, (function(error, jsonData) {
+    if (error) throw error;
+
+    dps = jsonData[city];
+
+    // console.log(dps);
+
+    for (var i = 0; i < dps.length; i++) {
+      // console.log(dps[i].month);
+      if (rangeLabel === dps[i].month) {
+        // console.log(`${dps[i].month}: ${dps[i].volume}`);
+        var datapoints = dps[i].volume;
+        var high_temp = dps[i].temp[0];
+        var lo_temp = dps[i].temp[1];
+        // console.log(lo_temp);
+        // console.log(high_temp);
+        break
+      }
+    }
+
+    const dataSource = {
+      chart: {
+        caption: `Average Precipitation in ${city} during the month of ${rangeLabel}`,
+        lowerlimit: "0",
+        upperlimit: "15",
+        numbersuffix: " in.",
+        cylfillcolor: "#29ADDC",
+        plottooltext: `Precipitation: <b> ${datapoints} in. </b>`,
+        cylfillhoveralpha: "85",
+        showValue: "1",
+        animationDuration: "2",
+        showBorder: "1",
+        bgColor: "#ffffff",
+        theme: "fusion"
+      },
+      value: datapoints
+    };
+    
+    FusionCharts.ready(function() {
+      var myChart = new FusionCharts({
+        type: "cylinder",
+        renderAt: "chart-container",
+        width: "100%",
+        height: "100%",
+        dataFormat: "json",
+        dataSource
+      }).render();
+    });
+
+    FusionCharts.ready(function() {
+      var myChart1 = new FusionCharts({
+        type: 'thermometer',
+        renderAt: 'lo-temp',
+        id: 'myThm',
+        width: '100%',
+        height: '100%',
+        dataFormat: 'json',
+        dataSource: {
+          "value": lo_temp,
+          "chart": {
+            "theme": "fusion",
+            "caption": `Low Temperature in ${city} during the month of ${rangeLabel}`,
+            "subcaption": " (on average)",
+            "lowerLimit": "0",
+            "upperLimit": "110",
+            "showvalue": "1",
+            "decimals": "0",
+            "numberSuffix": "°F",
+            "showhovereffect": "1",
+            "thmFillColor": "#29ADDC",
+            "showGaugeBorder": "1",
+            "gaugeBorderColor": "#008ee4",
+            "gaugeBorderThickness": "2",
+            "gaugeBorderAlpha": "30",
+            "valueFontColor": "#000000",
+            "showBorder": "1",
+            "bgColor": "#ffffff",
+            "animationDuration": "2",
+            "theme": "gammel"
+          }
+        }
+      }).render();
+    });
+
+    FusionCharts.ready(function() {
+      var myChart2 = new FusionCharts({
+        type: 'thermometer',
+        renderAt: 'hi-temp',
+        id: 'myThm2',
+        width: '100%',
+        height: '100%',
+        dataFormat: 'json',
+        dataSource: {
+          "chart": {
+            "theme": "fusion",
+            "caption": `High Temperature in ${city} during the month of ${rangeLabel}`,
+            "subcaption": " (on average)",
+            "lowerLimit": "0",
+            "upperLimit": "110",
+            "showvalue": "1",
+            "decimals": "0",
+            "numberSuffix": "°F",
+            "showhovereffect": "1",
+            "thmFillColor": "#29ADDC",
+            "showGaugeBorder": "1",
+            "gaugeBorderColor": "#008ee4",
+            "gaugeBorderThickness": "2",
+            "gaugeBorderAlpha": "30",
+            "valueFontColor": "#000000",
+            "showBorder": "1",
+            "bgColor": "#ffffff",
+            "animationDuration": "2",
+            "theme": "gammel"
+          },
+          "value": high_temp
+        }
+      }).render();
+    });    
+
+  }));
+}
 
 function generateChart () {
   var data_link = "/api/v1.0/" + radioValue +"Data";
@@ -412,8 +552,8 @@ function generateChart () {
       chart1.options.data[0].dataPoints = [];
 
       // var selected = e.options[e.selectedIndex].value;
-      dps = jsonData[city];    
-
+      dps = jsonData[city];
+      
       // console.log(city);
 
       // fix flipped low and high values and put it in the right order
@@ -442,19 +582,11 @@ function generateChart () {
   
 }
 
-////////////////////////////////////////////////
-// FUNCTION TO CALL THE RADIO BUTTON VALUE
-////////////////////////////////////////////////
-
 function OnChangeRadio (radio) {
   radioValue = radio.value;  
   generateChart();
   // console.log(radio.value)
 }
-
-//////////////////////////////////////////////////////
-// FUNCTION TO PULL IN NEW DATA BASED ON CLICK ON MAP
-//////////////////////////////////////////////////////
 
 // on change function
 function optionChanged(newCity) {
@@ -462,7 +594,9 @@ function optionChanged(newCity) {
   console.log(`Showing data for ${newCity}`)
   generateChart();
   tempGauge(newCity);
-  percipGauge(newCity);  
+  percipGauge(newCity);
+  generate_prcp();
+  addParagraph(newCity);
 }
 
 // call initial landing page function to get landing page to display

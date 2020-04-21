@@ -13,7 +13,8 @@ function tableFromJson() {
 
         // Create a table.
         var table = document.createElement("table");
-        table.setAttribute('class', 'table table-striped');
+        table.setAttribute('class', 'table table-striped table-condensed');
+        table.setAttribute('style', 'font-size: small')
 
         // Create table header row using the extracted headers above.
         var tr = table.insertRow(-1);                   // table row.
