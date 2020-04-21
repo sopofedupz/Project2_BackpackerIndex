@@ -39,6 +39,7 @@ hotel_tbl = Base.classes.HOTEL
 hostel_tbl = Base.classes.HOSTEL
 transport_tbl = Base.classes.TRANSPORTATION
 climate_data = Base.classes.TEMP_PRCP
+intro_data = Base.classes.INTRO
 
 #################################################
 # Flask Routes
@@ -55,6 +56,11 @@ def IndexRoute():
 def dashboard():
     print("works fine in Dashboard.html")
     return render_template("Dashboard.html")
+
+@app.route("/Dashboard3.html")
+def dashboard3():
+    print("works fine in Dashboard3.html")
+    return render_template("Dashboard3.html")
 
 # Route to our comparison page
 @app.route("/Comparison.html")
@@ -151,7 +157,6 @@ def factsRoute():
         # all_cities.append(city_dict)
 
     return jsonify(all_cities)
-    session.close()
 
 @app.route("/api/v1.0/comparison")
 def compRoute():
@@ -416,7 +421,87 @@ def climate():
 
     return avg_climate.to_json(orient='records')
 
+@app.route("/api/v1.0/prcpData")
+def prcpRoute():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+    # Return a list of dictionaries with food and drinks, hotel, hostel, and transportation
+    prcp = session.query(climate_data.city_country, climate_data.month, climate_data.prcp_inch).all()
+    city_facts = session.query(facts.city_country).all()
 
+    session.close()
+
+    # Get the list of cities
+    cities = []
+
+    for row in city_facts:
+        cities.append(row[0])
+
+    # Create a dictionary of the list of cities
+    dict = {c: [] for c in cities}
+
+    for row in prcp:
+        for i in range (0, 137):
+            if row[0] == cities[i]:
+                name = cities[i]
+                dict[name].append({"volume": row[2],
+                                "month": row[1]
+                                })
+
+    return jsonify(dict)
+
+@app.route("/api/v1.0/tempPrcp")
+def tempPrcpRoute():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+    # Return a list of dictionaries with food and drinks, hotel, hostel, and transportation
+    prcp = session.query(climate_data.city_country, climate_data.month, climate_data.high_temp, climate_data.low_temp, climate_data.prcp_inch).all()
+    city_facts = session.query(facts.city_country).all()
+
+    session.close()
+
+    # Get the list of cities
+    cities = []
+
+    for row in city_facts:
+        cities.append(row[0])
+
+    # Create a dictionary of the list of cities
+    dict = {c: [] for c in cities}
+
+    for row in prcp:
+        for i in range (0, 137):
+            if row[0] == cities[i]:
+                name = cities[i]
+                temp = []
+                temp.append(row[2])
+                temp.append(row[3])
+                dict[name].append({"temp": temp,
+                                "month": row[1],
+                                "volume": row[4]
+                                })
+
+    return jsonify(dict)
+
+@app.route("/api/v1.0/intro")
+def introRoute():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+    
+    #Return a list of cities + facts
+    introduction = session.query(intro_data.city_country, intro_data.intro_para1, intro_data.intro_para2, intro_data.intro_para3, intro_data.intro_para4).all()
+    session.close()
+
+    all_cities = []
+    for row in introduction:
+        all_cities.append({"city_country": row[0],
+                           "para1": row[1],
+                           "para2": row[2],
+                           "para3": row[3],
+                           "para4": row[4]})
+
+    # return jsonify(dict)
+    return jsonify(all_cities)
 
 @app.route("/test")
 def TestRoute():
